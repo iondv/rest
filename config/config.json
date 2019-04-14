@@ -1,0 +1,28 @@
+{
+  "parametrised": true,
+  "di" : {
+    "accept": {
+      "module": "./lib/impl/acceptor",
+      "options": {
+        "metaRepo": "ion://metaRepo",
+        "dataRepo": "ion://dataRepo"
+      }
+    },
+    "wsAuth": {
+      "module": "lib/wsAuth",
+      "options": {
+        "dataSource": "ion://Db",
+        "auth": "ion://auth",
+        "acl": "ion://aclProvider"
+      }
+    },
+    "token": {
+      "module": "./lib/impl/token",
+      "options": {
+        "auth": "ion://auth",
+        "ws": "ion://wsAuth",
+        "acl": "ion://aclProvider"
+      }
+    }
+  }
+}
