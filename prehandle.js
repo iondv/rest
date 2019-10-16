@@ -31,11 +31,11 @@ function getReqAuth(req) {
   return result;
 }
 
-module.exports = function (req, res) {
+module.exports = function (req, res, next) {
   /**
    * @type {{metaRepo: MetaRepository, sysLog: Logger, settings: SettingsRepository}}
    */
-  let scope = di.context(moduleName);
+  const scope = di.context(moduleName);
 
   if (scope.hasOwnProperty(req.params.service)) {
     let authModes = scope.settings.get(moduleName + '.authMode') || {};
@@ -67,35 +67,18 @@ module.exports = function (req, res) {
         if (u) {
           scope.auth.forceUser(req, u);
         }
+        next();
       })
-      .then(()=>{
-        /**
-        * @type {Service}
-        */
-        let s = scope[req.params.service];
-        return s.handle(req);
-      })
-      .then(function (response) {
-        if (typeof response === 'object') {
-          if (response.hasOwnProperty('headers') && typeof response.headers === 'object') {
-            res.set(response.headers);
-          }
-          if (typeof response.data === 'string' || typeof response.data === 'object') {
-            response = response.data;
-          }
-        }
-
-        res.status(200).send(response);
-      }).catch(function (err) {
+      .catch((err) => {
         if (err instanceof IonError) {
           if (err.code === errors.ACCESS_DENIED) {
             return res.status(403).send(err.message);
           }
         }
         scope.sysLog.error(err);
-        res.status(500).send('Internal server error');
+        res.status(500).send('Внутренняя ошибка сервера');
       });
   } else {
-    res.status(404).send('Service name not found');
+    res.status(404).send('Сервис с указанным именем не найден.');
   }
 };

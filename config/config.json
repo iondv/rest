@@ -1,13 +1,6 @@
 {
   "parametrised": true,
   "di" : {
-    "accept": {
-      "module": "./lib/impl/acceptor",
-      "options": {
-        "metaRepo": "ion://metaRepo",
-        "dataRepo": "ion://dataRepo"
-      }
-    },
     "wsAuth": {
       "module": "lib/wsAuth",
       "options": {
