@@ -31,10 +31,11 @@ application services, including those using the core API.
 
 Overview:
 
-* [Service registration in application configuration](#регистрация-сервиса-в-конфигурации-приложения)
-* [Authorization for service requests](#авторизация-при-запросах-к-сервисам)
-* [Built-in module services](#встроенные-сервисы-модуля)
-* [Service handler in the app](#реализация-обработчика-сервиса-в-приложении)
+* [Service registration in application configuration](#service-registration-in-application-configuration)
+* [Authorization for service requests](#authorization-for-service-requests)
+* [Built-in module services](#built-in-module-services)
+* [Service handler in the app](#service-handler-in-the-app)
+* [Additional services](#additional-services)
 
 ### Service registration in application configuration 
 
@@ -664,7 +665,12 @@ Returns the objects objects satisfying the condition:
   "string_miltilinetext":"Example of the \"String [0]\"\r\n in the Multiline text [7] view",
   "string_formattext":"Example of the \r\n \"String [0]\" type \r\n in the \r\nFormatted text [7] view"}]
 ```
+### Additional services
 
+* [The SEARCH method](/docs/en/method_search.md)
+* [Sending requests with files in the CRUD service](/docs/en/methods_crud.md)
+* [Work-flow execution service](/docs/en/performance_workflow.md)
+* [Metadata publishing service](/docs/en/service_metadata.md)
 --------------------------------------------------------------------------  
 
  #### [Licence](/LICENSE) &ensp;  [Contact us](https://iondv.com) &ensp;  [Russian](/README_RU.md)         

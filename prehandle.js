@@ -31,7 +31,7 @@ function getReqAuth(req) {
   return result;
 }
 
-module.exports = function (req, res, next) {
+module.exports = (req, res, next) => {
   /**
    * @type {{metaRepo: MetaRepository, sysLog: Logger, settings: SettingsRepository}}
    */
@@ -76,9 +76,9 @@ module.exports = function (req, res, next) {
           }
         }
         scope.sysLog.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Внутренняя ошибка сервера');
       });
   } else {
-    res.status(404).send('Service with the specified name not found.');
+    res.status(404).send('Сервис с указанным именем не найден.');
   }
 };

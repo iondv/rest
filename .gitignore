@@ -8,3 +8,4 @@
 /**/*.ini
 package-lock.json
 /.git-*/*
+/**/*.swp

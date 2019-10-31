@@ -1,6 +1,6 @@
 {
   "name": "rest",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "homepage": "https://github.com/iondv/rest",
   "bugs": {
     "url": "https://github.com/iondv/rest/issues"
@@ -19,5 +19,8 @@
     "start": "",
     "test": "gulp test"
   },
-  "dependencies": {}
+  "dependencies": {
+    "busboy": "^0.3.1",
+    "is-base64": "^0.1.0"
+  }
 }
