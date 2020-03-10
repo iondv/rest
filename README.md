@@ -2,10 +2,10 @@ This page in [Русском](/README_RU.md)
 
 # IONDV. REST
 
-REST - is a **IONDV. Framework** module used to quickly create web services
+REST - is an **IONDV. Framework** module used to quickly create web services
 based on metadata for implementing microservice architecture. The module also allows you to
 integrate applications created on the framework with other systems using the REST API and it
-provides data exchange to the implement arbitrary user interfaces
+provides data exchange to implement arbitrary custom web interfaces
 (including [SPA](https://en.wikipedia.org/wiki/Single-page_application) created on the frameworks [Angular](https://angularjs.org), [Redux](https://redux.js.org), [Vue](https://ru.vuejs.org), etc.).
 
 ### IONDV. Framework in brief
@@ -14,7 +14,7 @@ provides data exchange to the implement arbitrary user interfaces
 or microservices based on metadata and individual modules. Framework is a part of 
 instrumental digital platform to create enterprise 
 (ERP) apps. This platform consists of the following open-source components: the [IONDV. Framework](https://github.com/iondv/framework), the
-[modules](https://github.com/topics/iondv-module) и ready-made applications expanding it
+[modules](https://github.com/topics/iondv-module) and ready-made applications expanding its
 functionality, visual development environment [Studio](https://github.com/iondv/studio) to create metadata for the app.
 
 * For more details, see [IONDV. Framework site](https://iondv.com). 
@@ -23,18 +23,19 @@ functionality, visual development environment [Studio](https://github.com/iondv/
 
 ## Description
 
-**IONDV. REST** - module providing work with data of IONDV applications via `REST API`.
-It's a cover to work with data via standart CRUD functions or it connects your own
-application services, including those using the core API.
+**IONDV. REST** - is a module providing a way to work with the data of IONDV applications via `REST API`.
+It's a wrapper to work with the data via standard CRUD functions, it also connects the
+application's own services, including those using the core API.
 
-## Functionalities
+## Functionality
 
 Overview:
 
-* [Service registration in application configuration](#регистрация-сервиса-в-конфигурации-приложения)
-* [Authorization for service requests](#авторизация-при-запросах-к-сервисам)
-* [Built-in module services](#встроенные-сервисы-модуля)
-* [Service handler in the app](#реализация-обработчика-сервиса-в-приложении)
+* [Service registration in application configuration](#service-registration-in-application-configuration)
+* [Authorization for service requests](#authorization-for-service-requests)
+* [Built-in module services](#built-in-module-services)
+* [Service handler in the app](#service-handler-in-the-app)
+* [Additional services](#additional-services)
 
 ### Service registration in application configuration 
 
@@ -116,7 +117,7 @@ curl -H "auth-user: demo@local" -H "auth-pwd: ion-demo" https://dnt.iondv.com/re
 ```
 
 
-#### No authentication services
+#### Services without the authentication
 
 To implement the service without authentication, you must set the `none` parameter in the `deploy.json` file:
 
@@ -664,7 +665,12 @@ Returns the objects objects satisfying the condition:
   "string_miltilinetext":"Example of the \"String [0]\"\r\n in the Multiline text [7] view",
   "string_formattext":"Example of the \r\n \"String [0]\" type \r\n in the \r\nFormatted text [7] view"}]
 ```
+### Additional services
 
+* [The SEARCH method](/docs/en/method_search.md)
+* [Sending requests with files in the CRUD service](/docs/en/methods_crud.md)
+* [Work-flow execution service](/docs/en/performance_workflow.md)
+* [Metadata publishing service](/docs/en/service_metadata.md)
 --------------------------------------------------------------------------  
 
  #### [Licence](/LICENSE) &ensp;  [Contact us](https://iondv.com) &ensp;  [Russian](/README_RU.md)         

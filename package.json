@@ -1,23 +1,22 @@
 {
   "name": "rest",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "homepage": "https://github.com/iondv/rest",
   "bugs": {
     "url": "https://github.com/iondv/rest/issues"
   },
   "license": "Apache License 2.0",
   "engines": {
-    "node": ">=0.12.0",
-    "ion": "3.0.11"
+    "node": ">=8.11.4",
+    "ion": "4.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/iondv/rest.git"
   },
   "private": true,
-  "scripts": {
-    "start": "",
-    "test": "gulp test"
-  },
-  "dependencies": {}
+  "dependencies": {
+    "busboy": "^0.3.1",
+    "is-base64": "^0.1.0"
+  }
 }

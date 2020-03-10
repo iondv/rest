@@ -8,6 +8,11 @@ const di = require('core/di');
 const IonError = require('core/IonError');
 const errors = require('core/errors/front-end');
 const base64 = require('base64-js');
+const isBase64 = require('is-base64');
+
+function getAuthValue(val) {
+  return isBase64(val) ? Buffer.from(base64.toByteArray(val)).toString('utf-8') : val;
+}
 
 function getReqAuth(req) {
   let result = {
@@ -20,9 +25,21 @@ function getReqAuth(req) {
   if (!result.user) {
     let auth = req.get('Authorization');
     if (auth) {
-      auth = Buffer.from(base64.toByteArray(auth.replace(/^Basic\s+/, ''))).toString('utf-8').split(':');
-      result.user = auth[0];
-      result.pwd = auth.length > 1 ? auth[1] : null;
+      let credentials = auth.match(/^(Basic|Bearer)\s+([^\s]+)/);
+      if (credentials && credentials.length > 2) {
+        switch (credentials[1]) {
+          case 'Bearer':
+            result.token = credentials[2];
+            break;
+          case 'Basic':
+            auth = getAuthValue(credentials[2]).split(':');
+            result.user = auth[0];
+            result.pwd = auth.length > 1 ? auth[1] : null;
+            break;
+          default:
+            break;
+        }
+      }
     }
   }
   if (!result.pwd && !result.token) {
@@ -31,7 +48,7 @@ function getReqAuth(req) {
   return result;
 }
 
-module.exports = function (req, res, next) {
+module.exports = (req, res, next) => {
   /**
    * @type {{metaRepo: MetaRepository, sysLog: Logger, settings: SettingsRepository}}
    */
@@ -46,14 +63,26 @@ module.exports = function (req, res, next) {
 
     let authCheck = null;
     if (authMode !== 'none') {
-      if (authMode === 'oauth') {
-        authCheck = scope.oauth.authenticate(res.headers);
-      } else {
-        let credentials = getReqAuth(req);
-        if (!credentials) {
-          return res.set('WWW-Authenticate', 'Basic realm="User Visible Realm"').sendStatus(401);
+      switch (authMode) {
+        case 'token':
+        case 'pwd':
+        {
+          let credentials = getReqAuth(req);
+          if (
+            !credentials ||
+            (authMode == 'pwd' && (!credentials.user || !credentials.pwd)) ||
+            (authMode == 'token' && !credentials.token)
+          ) {
+            return res.set('WWW-Authenticate', 'Basic realm="User Visible Realm"').sendStatus(401);
+          }
+          authCheck = scope.wsAuth.authenticate(credentials);
         }
-        authCheck = scope.wsAuth.authenticate(credentials);
+          break;
+        case 'oauth':
+          authCheck = scope.oauth.authenticate(req);
+          break;
+        default:
+          return res.sendStatus(401);
       }
     } else {
       authCheck = Promise.resolve();
@@ -75,10 +104,9 @@ module.exports = function (req, res, next) {
             return res.status(403).send(err.message);
           }
         }
-        scope.sysLog.error(err);
-        res.status(500).send('Внутренняя ошибка сервера');
+        res.sendStatus(401);
       });
   } else {
-    res.status(404).send('Сервис с указанным именем не найден.');
+    res.status(404).send('Service not found');
   }
 };
