@@ -6,6 +6,7 @@ const request = require('request');
 const sys = require('core/system');
 const {readYaml} = require('core/util/read');
 const base64 = require('base64-js');
+const IonError = require('core/IonError');
 
 /**
  * @param {{}} options
@@ -42,10 +43,11 @@ function GateWay(options) {
           Authorization: 'Basic ' + base64.fromByteArray(Buffer.from(clientId + ':' + clientSecret, 'utf8'))
         }
       }, function (err, response, body) {
-        if (err) {
+        if (err || response.statusCode !== 200) {
           token = false;
-          return reject(err);
+          return reject(err || new IonError(response.statusCode, {}, {message: body}));
         }
+
         token = body;
         resolve();
       });
@@ -55,12 +57,7 @@ function GateWay(options) {
   function byPass(path, method, req, res) {
     const destHost = host(req);
     ensureToken(destHost)
-      .catch((err) => {
-        options.log && options.log.error(`failed to obtain authorization token from ${destHost + options.tokenPath}`);
-        options.log && options.log.error(err);
-        res.status(500).send('internal server error');
-      })
-      .then(() => {
+      .then(() => new Promise((resolve, reject) => {
         const r = request[method]({
           url: destHost + path,
           query: req.query,
@@ -78,7 +75,16 @@ function GateWay(options) {
             return;
           }
           r.pipe(res);
+          resolve();
         });
+        r.on('error', (err) => {
+          reject(err);
+        });
+      }))
+      .catch((err) => {
+        options.log && options.log.error(`failed to obtain authorization token from ${destHost + options.tokenPath}`);
+        options.log && options.log.error(err);
+        res.status(500).send('internal server error');
       });
   }
 
