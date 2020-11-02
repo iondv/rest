@@ -6,7 +6,6 @@ const path = require('path');
 const express = require('express');
 const di = require('core/di');
 const config = require('./config');
-const rootConfig = require('../../config');
 const moduleName = require('./module-name');
 const pre = require('./prehandle');
 const extendDi = require('core/extendModuleDi');
@@ -14,9 +13,7 @@ const alias = require('core/scope-alias');
 const errorSetup = require('core/error-setup');
 const Service = require('./lib/interfaces/Service');
 
-const lang = config.lang || rootConfig.lang || 'ru';
-const i18nDir = path.join(__dirname, 'i18n');
-errorSetup(lang, i18nDir);
+errorSetup(path.join(__dirname, 'strings'));
 
 const app = express();
 
