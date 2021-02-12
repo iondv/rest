@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 05:14+0000\n"
+"POT-Creation-Date: 2021-02-12 03:42+0000\n"
 "PO-Revision-Date: 2021-02-08 23:35+0000\n"
 "Last-Translator: allys <allys@live.ru>\n"
 "Language-Team: Russian <http://weblate.iondv.com/projects/iondv-framework/"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Weblate 4.4.2\n"
 
 #: strings/errors/backend.js:5
-msgid "Не найден указанный в запросе конвертор."
+msgid "The converter specified in the request was not found."
 msgstr ""
 
 #: strings/errors/backend.js:6
