@@ -1,10 +1,10 @@
 const isBase64 = require('is-base64');
-const PropertyTypes = require('core/PropertyTypes');
+const { IonError } = require('@iondv/core');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const {
   getEnrichedItem,
   getStorageDir
-} = require('lib/util/storageDirectoryParser');
-const IonError = require('core/IonError');
+} = require('@iondv/commons/lib/storageDirectoryParser');
 const Errors = require('../errors/backend-errors');
 
 function parseFile(value) {

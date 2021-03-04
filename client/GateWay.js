@@ -3,10 +3,8 @@
  */
 
 const request = require('request');
-const sys = require('core/system');
-const {readYaml} = require('core/util/read');
+const { utils: { system: sys, config: { readYaml } }, IonError } = require('@iondv/core');
 const base64 = require('base64-js');
-const IonError = require('core/IonError');
 
 /**
  * @param {{}} options

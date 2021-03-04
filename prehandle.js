@@ -3,10 +3,8 @@
  */
 'use strict';
 
-const moduleName = require('./module-name');
-const di = require('core/di');
-const IonError = require('core/IonError');
-const errors = require('core/errors/front-end');
+const { di, IonError } = require('@iondv/core');
+const errors = require('@iondv/web/lib/errors/front-end');
 const base64 = require('base64-js');
 const isBase64 = require('is-base64');
 
@@ -48,7 +46,7 @@ function getReqAuth(req) {
   return result;
 }
 
-module.exports = (req, res, next) => {
+module.exports = (moduleName) => (req, res, next) => {
   /**
    * @type {{metaRepo: MetaRepository, sysLog: Logger, settings: SettingsRepository}}
    */
