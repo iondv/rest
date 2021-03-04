@@ -4,14 +4,12 @@
  */
 const path = require('path');
 const express = require('express');
-const { di, utils: { errorSetup } } = require('@iondv/core');
+const { di } = require('@iondv/core');
 const { utils: { extendDi } } = require('@iondv/commons');
 
 const config = require('./config');
 const pre = require('./prehandle');
 const Service = require('./lib/interfaces/Service');
-
-errorSetup(path.join(__dirname, 'strings'));
 
 const app = express();
 
