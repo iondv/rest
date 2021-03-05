@@ -2,7 +2,6 @@
 /**
  * Created by kras on 06.07.16.
  */
-const path = require('path');
 const express = require('express');
 const { di } = require('@iondv/core');
 const { utils: { extendDi } } = require('@iondv/commons');
