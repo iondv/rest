@@ -2,7 +2,7 @@
   "parametrised": true,
   "di" : {
     "wsAuth": {
-      "module": "lib/wsAuth",
+      "module": "@iondv/web/lib/wsAuth",
       "options": {
         "dataSource": "ion://Db",
         "auth": "ion://auth",
@@ -10,7 +10,7 @@
       }
     },
     "token": {
-      "module": "./lib/impl/token",
+      "module": "@iondv/rest/lib/impl/token",
       "options": {
         "auth": "ion://auth",
         "ws": "ion://wsAuth",
