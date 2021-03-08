@@ -31,6 +31,9 @@ app._init = (moduleName) => {
   )
     .then(scope => alias(scope, scope.settings.get(`${moduleName}.di-alias`)))
     .then((scope) => {
+      app.get('/', (req, res) => {
+        res.send('Ion DV REST interface');
+      });
       app.use(`/:service`, pre(moduleName));
       Object.keys(scope).forEach((nm) => {
         if (scope[nm] instanceof Service) {
